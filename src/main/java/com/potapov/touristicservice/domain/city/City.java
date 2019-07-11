@@ -1,17 +1,29 @@
 package com.potapov.touristicservice.domain.city;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class City {
 
+    @Id
+    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String cityName;
+    @NotNull
+    @Column(unique = true)
+    private String name;
+
+    @NotNull
+    private String description;
 
     public City() {
     }
 
-    public City(long id, String cityName) {
-        this.id = id;
-        this.cityName = cityName;
+    public City(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public long getId() {
@@ -22,11 +34,19 @@ public class City {
         this.id = id;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getName() {
+        return name;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
