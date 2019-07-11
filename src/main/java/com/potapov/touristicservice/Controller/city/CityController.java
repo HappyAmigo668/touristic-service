@@ -2,30 +2,44 @@ package com.potapov.touristicservice.Controller.city;
 
 import com.potapov.touristicservice.domain.city.City;
 import com.potapov.touristicservice.service.city.CityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/cityDescription")
 public class CityController {
 
+    @Autowired
     CityService cityService;
 
+    @GetMapping("/")
     public List<City> findAll(){
         return cityService.findAll();
     }
 
-    public City findById(long id){
+    @GetMapping("/{id}")
+    public City findById(@PathVariable long id){
         return cityService.findById(id);
     }
 
-    public boolean save(City city){
-        return cityService.save(city);
+    @GetMapping("/{name}")
+    public City findByName(@PathVariable String name){return cityService.findByName(name); }
+
+    @PostMapping("/")
+    public boolean save(@RequestBody City cityDescription){
+        return cityService.save(cityDescription);
     }
 
-    public City update(long id, City city){
-        return cityService.update(id, city);
+    @PutMapping("/{id}")
+    public City update(@PathVariable long id, @RequestBody City cityDescription){
+        return cityService.update(id, cityDescription);
     }
 
-    public boolean delete(long id){
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable long id){
         return cityService.delete(id);
     }
+
 }
