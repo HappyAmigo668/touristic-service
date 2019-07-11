@@ -1,9 +1,11 @@
 package com.potapov.touristicservice.service.city;
 
 import com.potapov.touristicservice.domain.city.City;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface CityService {
 
     List<City> findAll();
@@ -17,5 +19,4 @@ public interface CityService {
     City update(long id, City city);
 
     boolean delete(long id);
-
 }
