@@ -28,13 +28,13 @@ public class CityController {
     public City findByName(@PathVariable String name){return cityService.findByName(name); }
 
     @PostMapping("/")
-    public boolean save(@RequestBody City cityDescription){
-        return cityService.save(cityDescription);
+    public boolean save(@RequestBody City city){
+        return cityService.save(city);
     }
 
     @PutMapping("/{id}")
-    public City update(@PathVariable long id, @RequestBody City cityDescription){
-        return cityService.update(id, cityDescription);
+    public City update(@PathVariable long id, @RequestBody City city){
+        return cityService.update(id, city);
     }
 
     @DeleteMapping("/{id}")
