@@ -16,6 +16,9 @@ public class City {
     private String name;
 
     @NotNull
+    @Column(name = "description",
+            length = 6000,
+            columnDefinition = "VARCHAR(6000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
     private String description;
 
     public City() {
