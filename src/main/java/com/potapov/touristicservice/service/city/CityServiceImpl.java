@@ -1,9 +1,11 @@
 package com.potapov.touristicservice.service.city;
 
-import com.potapov.touristicservice.domain.city.City;
 import com.potapov.touristicservice.repository.city.CityRepository;
+import com.potapov.touristicservice.domain.city.City;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class CityServiceImpl implements CityService {
                 return city;
 
             } else {
-                throw new RuntimeException("City with id: " + id + " is not found.");
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "City with id: " + id + " is not found.");
             }
 
         } else {
@@ -44,7 +46,7 @@ public class CityServiceImpl implements CityService {
             return city;
 
         } else {
-            throw new RuntimeException("City: " + name + " is not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "City: " + name + " is not found.");
         }
     }
 
@@ -52,25 +54,30 @@ public class CityServiceImpl implements CityService {
     @Override
     public boolean save(City city) {
         City cityInstance = cityRepository.findByName(city.getName());
-        if(cityInstance == null) {
+
+        if (cityInstance == null) {
             cityRepository.save(city);
             return true;
+
         } else {
-            throw new RuntimeException("City is already exist.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "City with id: " + city.getId() + " is already exist.");
         }
     }
 
     @Override
     public City update(long id, City city) {
         City cityInstance = findById(id);
+
         cityInstance.setName(city.getName());
         cityInstance.setDescription(city.getDescription());
+
         return cityRepository.save(cityInstance);
     }
 
     @Override
     public boolean delete(long id) {
         City cityInstance = findById(id);
+
         cityRepository.delete(cityInstance);
         return true;
     }
